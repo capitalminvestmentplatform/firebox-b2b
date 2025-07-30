@@ -179,7 +179,7 @@ const GalleryView = ({
       {gallery.length > 0 ? (
         <Fragment>
           <div className="flex gap-4">
-            {gallery?.map((img: string, index: number) => (
+            {gallery?.map((img: any, index: number) => (
               <div
                 key={index}
                 className={`relative group border-2 ${
