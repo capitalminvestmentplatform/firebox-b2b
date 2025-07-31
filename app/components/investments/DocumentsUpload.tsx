@@ -53,17 +53,17 @@ export function DocumentsUpload({
         </div>
       </label>
 
-      <ul className="mt-4 space-y-2">
+      <ul className="mt-4 flex gap-5">
         {docs.map((doc, index) => (
           <li
             key={index}
-            className="flex items-center justify-between bg-gray-100 rounded p-2 text-sm"
+            className="flex items-center justify-between bg-secondaryColor rounded p-2 text-sm"
           >
             <span className="truncate">{getDocName(doc)}</span>
             <button
               type="button"
               onClick={() => handleRemove(index)}
-              className="ml-2 text-red-600 hover:text-red-800"
+              className="ml-2 text-primaryColor hover:text-primaryColor"
             >
               <X size={16} />
             </button>

@@ -1,42 +1,29 @@
 "use client";
 
 import React, { Fragment, useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-  DialogClose,
-} from "@/components/ui/dialog";
-import {
-  FaTrash,
-  FaDownload,
-  FaChevronLeft,
-  FaChevronRight,
-  FaTimes,
-  FaPlus,
-  FaEdit,
-} from "react-icons/fa";
 import { getLoggedInUser } from "@/utils/client";
-import Image from "next/image";
 import { toast } from "sonner";
+import ProductCard from "./ProductCard";
+import MediaGallery from "./MediaGallery";
+import MediaPreviewDialog from "./modals/MediaPreviewModal";
 
 const GalleryView = ({
   products,
-  productImages,
-  onDelete,
-  selectedProduct,
+  productItems,
   setSelectedProduct,
-  fetchProductImages,
+  fetchProductItems,
+  type,
 }: {
   products: any[];
-  productImages: any[];
+  productItems: any[];
   onDelete?: (index: number) => void;
   selectedProduct: string;
   setSelectedProduct: (productId: string) => void;
-  fetchProductImages: () => void;
+  fetchProductItems: () => void;
+  type: string;
 }) => {
   const [gallery, setGallery] = useState<any[]>([]);
-  const [deletedImages, setDeletedImages] = useState<string[]>([]);
+  const [deletedItems, setDeletedItems] = useState<string[]>([]);
   const [buttonLoading, setButtonLoading] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [open, setOpen] = useState(false);
@@ -50,7 +37,7 @@ const GalleryView = ({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ mediaId, uId, type: "images" }),
+        body: JSON.stringify({ mediaId, uId, type }),
       });
 
       // Trigger file download manually
@@ -68,27 +55,23 @@ const GalleryView = ({
     }
   };
 
-  const next = () => setCurrentIndex((prev) => (prev + 1) % gallery.length);
-  const prev = () =>
-    setCurrentIndex((prev) => (prev - 1 + gallery.length) % gallery.length);
-
-  const groupedImages = productImages.reduce(
+  const groupedItems = productItems?.reduce(
     (acc, image) => {
       if (!acc[image.pId]) acc[image.pId] = [];
       acc[image.pId].push(image);
       return acc;
     },
-    {} as Record<string, typeof productImages>
+    {} as Record<string, typeof productItems>
   );
 
-  const handleDeleteImages = async () => {
-    if (deletedImages.length === 0) return;
+  const handleDeleteItems = async () => {
+    if (deletedItems.length === 0) return;
     setButtonLoading(true);
     try {
       const query = new URLSearchParams({
-        images: deletedImages.join(","),
+        items: deletedItems.join(","),
       }).toString();
-      const res = await fetch(`/api/product-images?${query}`, {
+      const res = await fetch(`/api/product-${type}?${query}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -100,11 +83,11 @@ const GalleryView = ({
         throw new Error(response.message);
       }
       toast.success(response.message);
-      fetchProductImages();
-      setDeletedImages([]);
+      fetchProductItems();
+      setDeletedItems([]);
       setGallery([]);
     } catch (error) {
-      console.error("Error deleting images:", error);
+      console.error("Error deleting items:", error);
     } finally {
       setButtonLoading(false);
     }
@@ -114,179 +97,56 @@ const GalleryView = ({
     <>
       <div className="grid grid-cols-3 gap-4 mb-20">
         {products.map((product) => {
-          const images = groupedImages[product._id] || [];
+          const items = groupedItems[product._id] || [];
 
           return (
-            <Fragment>
-              <div
-                className="relative group cursor-pointer rounded overflow-hidden shadow-lg p-5"
-                onClick={() => {
-                  setGallery(images);
-                  setCurrentIndex(0);
-                  setOpen(true);
-                }}
-              >
-                <Image
-                  src={product?.image}
-                  alt={product?.name || "Product Image"}
-                  width={500}
-                  height={288}
-                  className="w-full h-72 object-cover object-center transition-transform duration-300 group-hover:scale-105 rounded"
-                />
-
-                {/* Overlay with product name and image count */}
-                <div className="absolute inset-0 bg-primaryColor_1 bg-opacity-60 flex flex-col justify-between p-3">
-                  <h3 className="text-white font-semibold text-lg">
-                    {product?.name}
-                  </h3>
-                  <span className="text-white text-xs self-start bg-secondaryColor py-1 px-2 font-bold">
-                    {images.length} images
-                  </span>
-                </div>
-
-                {/* Hover Action Buttons */}
-                <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setGallery([]);
-                      setSelectedProduct(product._id);
-                      // Add image handler
-                    }}
-                    className="p-1 shadow bg-secondaryColor"
-                    title="Add Image"
-                  >
-                    <FaPlus size={15} className="text-white" />
-                  </button>
-
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setGallery(images);
-                      setSelectedProduct("");
-                    }}
-                    className="p-1 shadow bg-secondaryColor"
-                    title="Edit"
-                  >
-                    <FaEdit size={15} className="text-white" />
-                  </button>
-                </div>
-              </div>
-            </Fragment>
+            <ProductCard
+              key={product._id}
+              product={product}
+              items={items}
+              userRole={userRole || ""}
+              onViewGallery={() => {
+                setGallery(items);
+                setCurrentIndex(0);
+                setOpen(true);
+              }}
+              onAddItem={() => {
+                setGallery([]);
+                setSelectedProduct(product._id);
+              }}
+              onEditItems={() => {
+                setGallery(items);
+                setSelectedProduct("");
+              }}
+            />
           );
         })}
       </div>
-      {gallery.length > 0 ? (
-        <Fragment>
-          <div className="flex gap-4">
-            {gallery?.map((img: any, index: number) => (
-              <div
-                key={index}
-                className={`relative group border-2 ${
-                  deletedImages.includes(img._id)
-                    ? "border-red-600 opacity-50"
-                    : "border-transparent"
-                }`}
-              >
-                <img
-                  src={img?.url}
-                  alt={`Image ${index + 1}`}
-                  className="w-32 h-20 object-cover cursor-pointer"
-                  onClick={() => {
-                    setOpen(true);
-                    setCurrentIndex(index);
-                  }}
-                />
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setDeletedImages(
-                      (prev) =>
-                        prev.includes(img._id)
-                          ? prev.filter((_id) => _id !== img._id) // remove from deleted
-                          : [...prev, img._id] // add to deleted
-                    );
-                  }}
-                  className="absolute top-1 right-1 p-1 bg-red-600 text-white shadow-md"
-                  title="Delete Image"
-                >
-                  <FaTrash size={10} />
-                </button>
-              </div>
-            ))}
-          </div>
-          <div className="flex gap-5">
-            <button
-              onClick={() => {
-                setDeletedImages([]);
-              }}
-              className={`bg-white hover:bg-white text-sm font-bold text-primaryColor py-2 px-4 rounded`}
-            >
-              Cancel
-            </button>
-            <button
-              onClick={handleDeleteImages}
-              disabled={buttonLoading || deletedImages.length === 0}
-              className={`bg-secondaryColor hover:bg-secondaryColor text-sm font-bold text-textColor py-2 px-4 rounded ${
-                buttonLoading || deletedImages.length === 0
-                  ? "opacity-50 cursor-not-allowed"
-                  : ""
-              }`}
-            >
-              Confirm
-            </button>
-          </div>
-        </Fragment>
-      ) : null}
+      <MediaGallery
+        items={gallery}
+        deletedItems={deletedItems}
+        setDeletedItems={setDeletedItems}
+        userRole={userRole || ""}
+        onPreview={(index) => {
+          setCurrentIndex(index);
+          setOpen(true);
+        }}
+        onDeleteConfirm={handleDeleteItems}
+        onCancel={() => {
+          setDeletedItems([]);
+          setGallery([]);
+        }}
+        buttonLoading={buttonLoading}
+      />
       {/* Dialog Lightbox */}
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          {/* Hidden trigger (open handled programmatically) */}
-          <button className="hidden">Open</button>
-        </DialogTrigger>
-        <DialogContent className="max-w-4xl bg-black p-0 rounded-lg text-white [&>button]:hidden">
-          <div className="relative w-full flex items-center justify-center bg-black rounded-lg">
-            <img
-              src={gallery[currentIndex]?.url}
-              alt={`Slide ${currentIndex + 1}`}
-              className="max-h-[80vh] w-auto object-contain rounded-lg"
-            />
-
-            {/* Navigation Arrows */}
-            {gallery.length > 1 && (
-              <>
-                <button
-                  className="absolute left-4 -ms-16 top-1/2 transform -translate-y-1/2 text-white text-3xl hover:text-gray-400"
-                  onClick={prev}
-                >
-                  <FaChevronLeft />
-                </button>
-                <button
-                  className="absolute right-4 -me-16 top-1/2 transform -translate-y-1/2 text-white text-3xl hover:text-gray-400"
-                  onClick={next}
-                >
-                  <FaChevronRight />
-                </button>
-              </>
-            )}
-
-            {/* Download & Delete in Full View */}
-            <div className="absolute top-4 right-4 flex gap-2">
-              <button
-                onClick={() =>
-                  handleDownload(
-                    gallery[currentIndex].url,
-                    gallery[currentIndex]._id
-                  )
-                }
-                className="bg-secondaryColor hover:bg-secondaryColor text-sm font-bold text-white p-1 rounded"
-              >
-                <FaDownload />
-              </button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <MediaPreviewDialog
+        open={open}
+        setOpen={setOpen}
+        items={gallery}
+        currentIndex={currentIndex}
+        setCurrentIndex={setCurrentIndex}
+        onDownload={handleDownload}
+      />
     </>
   );
 };

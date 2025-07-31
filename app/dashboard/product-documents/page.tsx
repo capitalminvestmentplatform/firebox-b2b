@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { useProductDropdown } from "@/hooks/useProductDropdown";
 import DocsView from "@/app/components/DocsView";
 import { DocumentsUpload } from "@/app/components/investments/DocumentsUpload";
+import GalleryView from "@/app/components/GalleryView";
 
 const ProductDocumentsPage = () => {
   const userRole = getLoggedInUser()?.role;
@@ -92,36 +93,43 @@ const ProductDocumentsPage = () => {
         <p className="text-red-500">{error}</p>
       ) : (
         <>
-          <ProductDropdown
-            label="Product"
-            selected={selectedProduct}
-            onChange={setSelectedProduct}
-            options={options.map((p) => p)} // assuming _id is the value needed
+          <GalleryView
+            products={options}
+            productItems={productDocuments}
+            selectedProduct={selectedProduct}
+            setSelectedProduct={setSelectedProduct}
+            fetchProductItems={fetchProductDocuments}
+            type="documents"
           />
 
-          {userRole === "Admin" && (
+          {userRole === "Admin" && selectedProduct && (
             <>
               <DocumentsUpload docs={docs} setDocs={setDocs} />
 
-              <button
-                onClick={handleSubmit}
-                disabled={buttonLoading || docs.length === 0}
-                className={`bg-primaryBG hover:bg-primaryBG text-sm font-bold text-white py-2 px-4 rounded ${
-                  buttonLoading || docs.length === 0
-                    ? "opacity-50 cursor-not-allowed"
-                    : ""
-                }`}
-              >
-                Upload
-              </button>
+              <div className="flex gap-5">
+                <button
+                  onClick={() => {
+                    setDocs([]);
+                    setSelectedProduct("");
+                  }}
+                  className={`bg-white hover:bg-white text-xs font-bold text-primaryColor py-2 px-4 rounded`}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleSubmit}
+                  disabled={buttonLoading || docs.length === 0}
+                  className={`bg-secondaryColor hover:bg-secondaryColor text-xs font-bold text-textColor py-2 px-4 rounded ${
+                    buttonLoading || docs.length === 0
+                      ? "opacity-50 cursor-not-allowed"
+                      : ""
+                  }`}
+                >
+                  Save
+                </button>
+              </div>
             </>
           )}
-          <DocsView
-            productDocs={productDocuments}
-            selectedProduct={selectedProduct}
-            onDelete={() => {}}
-            type="documents"
-          />
         </>
       )}
     </div>

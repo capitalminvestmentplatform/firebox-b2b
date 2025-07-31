@@ -26,6 +26,36 @@ export async function GET() {
     return sendErrorResponse(500, "Internal server error", error);
   }
 }
+
+export async function DELETE(request: Request) {
+  try {
+    await connectToDatabase();
+
+    const url = new URL(request.url);
+    const params = url.searchParams.get("items");
+
+    if (!params) {
+      return sendErrorResponse(400, "No IDs provided");
+    }
+
+    const ids = params.split(",");
+
+    const result = await ProductManual.deleteMany({
+      _id: { $in: ids },
+    });
+
+    if (result.deletedCount === 0) {
+      return sendErrorResponse(404, "No manuals were deleted");
+    }
+
+    return sendSuccessResponse(
+      200,
+      `${result.deletedCount} manuals deleted successfully`
+    );
+  } catch (error) {
+    return sendErrorResponse(500, "Internal server error", error);
+  }
+}
 export async function POST(req: NextRequest) {
   try {
     await connectToDatabase();

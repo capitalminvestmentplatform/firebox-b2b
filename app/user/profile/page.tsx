@@ -210,7 +210,7 @@ const ProfilePage = () => {
   };
   return (
     <div className="flex flex-col items-center p-6">
-      <Card className="w-full shadow-lg rounded-2xl">
+      <Card className="w-full shadow-lg rounded-none border-none bg-primaryColor_1">
         <CardHeader>
           <CardTitle className="text-xl font-semibold">User Profile</CardTitle>
         </CardHeader>
@@ -229,7 +229,7 @@ const ProfilePage = () => {
                     <Label>First Name</Label>
                     <Input {...register("firstName")} />
                     {errors.firstName && (
-                      <p className="text-red-500 text-sm">
+                      <p className="text-secondaryColor text-sm">
                         {errors.firstName.message}
                       </p>
                     )}
@@ -238,7 +238,7 @@ const ProfilePage = () => {
                     <Label>Last Name</Label>
                     <Input {...register("lastName")} />
                     {errors.lastName && (
-                      <p className="text-red-500 text-sm">
+                      <p className="text-secondaryColor text-sm">
                         {errors.lastName.message}
                       </p>
                     )}
@@ -255,7 +255,7 @@ const ProfilePage = () => {
                     <Label>Phone</Label>
                     <Input {...register("phone")} />
                     {errors.phone && (
-                      <p className="text-red-500 text-sm">
+                      <p className="text-secondaryColor text-sm">
                         {errors.phone.message}
                       </p>
                     )}
@@ -271,16 +271,15 @@ const ProfilePage = () => {
                 </div>
                 <CustomButton
                   type="submit"
-                  classes="mt-6 bg-primaryBG"
+                  classes="mt-6 bg-secondaryColor"
                   name="Edit Profile"
                   state={loadingEditProfile}
                 />
               </form>
-              <div className="lg:flex gap-5">
+              {/* <div className="lg:flex gap-5">
                 <div className="lg:w-1/2">
                   <form onSubmit={handlePinSubmit(onPinSubmit)}>
                     <div
-                    //  className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4"
                     >
                       <div className="relative">
                         <Label>Pin</Label>
@@ -303,7 +302,7 @@ const ProfilePage = () => {
                           />
                         )}
                         {pinErrors.password && (
-                          <p className="text-red-500 text-sm">
+                          <p className="text-secondaryColor text-sm">
                             {pinErrors.password.message}
                           </p>
                         )}
@@ -330,7 +329,7 @@ const ProfilePage = () => {
                           />
                         )}
                         {pinErrors.confirmPassword && (
-                          <p className="text-red-500 text-sm">
+                          <p className="text-secondaryColor text-sm">
                             {pinErrors.confirmPassword.message}
                           </p>
                         )}
@@ -366,7 +365,6 @@ const ProfilePage = () => {
                       </div>
                     </div>
 
-                    {/* File input styled as button */}
                     <label
                       htmlFor="image"
                       className="inline-block mt-4 bg-primaryBG text-white py-2 px-4 rounded cursor-pointer text-center"
@@ -395,16 +393,16 @@ const ProfilePage = () => {
                     />
 
                     {imageErrors?.image && (
-                      <p className="text-red-500 text-sm mt-1">
+                      <p className="text-secondaryColor text-sm mt-1">
                         {imageErrors.image.message as string}
                       </p>
                     )}
                   </form>
                 </div>
-              </div>
+              </div> */}
             </div>
           ) : (
-            <p className="text-red-500">Failed to load user data.</p>
+            <p className="text-textColor">Failed to load user data.</p>
           )}
         </CardContent>
       </Card>

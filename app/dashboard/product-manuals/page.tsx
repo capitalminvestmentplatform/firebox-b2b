@@ -7,13 +7,14 @@ import { toast } from "sonner";
 import { useProductDropdown } from "@/hooks/useProductDropdown";
 import DocsView from "@/app/components/DocsView";
 import { OtherDocsUpload } from "@/app/components/investments/OtherDocsUpload";
+import GalleryView from "@/app/components/GalleryView";
 
 const ProductManualsPage = () => {
   const userRole = getLoggedInUser()?.role;
   const { selectedProduct, setSelectedProduct, options, isLoading, error } =
     useProductDropdown();
 
-  const [manual, setManual] = useState<File | string | null>(null); // ⬅️ single manual
+  const [manual, setManual] = useState<(File | string)[]>([]); // ⬅️ single manual
   const [productManuals, setProductManuals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [buttonLoading, setButtonLoading] = useState(false);
@@ -53,9 +54,9 @@ const ProductManualsPage = () => {
     setButtonLoading(true);
 
     const uploadedUrl =
-      typeof manual === "string"
-        ? manual
-        : await uploadFileToCloudinary(manual, "product/manuals");
+      typeof manual[0] === "string"
+        ? manual[0]
+        : await uploadFileToCloudinary(manual[0] as File, "product/manuals");
 
     const res = await fetch("/api/product-manuals", {
       method: "POST",
@@ -73,7 +74,7 @@ const ProductManualsPage = () => {
     }
 
     setButtonLoading(false);
-    setManual(null);
+    setManual([]);
     setSelectedProduct("");
     fetchProductManuals();
     toast.success(response.message);
@@ -87,41 +88,47 @@ const ProductManualsPage = () => {
         <p className="text-red-500">{error}</p>
       ) : (
         <>
-          <ProductDropdown
-            label="Product"
-            selected={selectedProduct}
-            onChange={setSelectedProduct}
-            options={options}
+          <GalleryView
+            products={options}
+            productItems={productManuals}
+            selectedProduct={selectedProduct}
+            setSelectedProduct={setSelectedProduct}
+            fetchProductItems={fetchProductManuals}
+            type="manuals"
           />
 
-          {userRole === "Admin" && (
+          {userRole === "Admin" && selectedProduct && (
             <>
               <OtherDocsUpload
-                docs={manual ? [manual] : []}
-                setDocs={(docs) => setManual(docs[0] ?? null)}
+                docs={manual}
+                setDocs={(docs) => setManual(docs)}
                 type="manual"
               />
 
-              <button
-                onClick={handleSubmit}
-                disabled={buttonLoading || !manual}
-                className={`bg-primaryBG hover:bg-primaryBG text-sm font-bold text-white py-2 px-4 rounded ${
-                  buttonLoading || !manual
-                    ? "opacity-50 cursor-not-allowed"
-                    : ""
-                }`}
-              >
-                Upload
-              </button>
+              <div className="flex gap-5">
+                <button
+                  onClick={() => {
+                    setManual([]);
+                    setSelectedProduct("");
+                  }}
+                  className={`bg-white hover:bg-white text-xs font-bold text-primaryColor py-2 px-4 rounded`}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleSubmit}
+                  disabled={buttonLoading || manual.length === 0}
+                  className={`bg-secondaryColor hover:bg-secondaryColor text-xs font-bold text-textColor py-2 px-4 rounded ${
+                    buttonLoading || manual.length === 0
+                      ? "opacity-50 cursor-not-allowed"
+                      : ""
+                  }`}
+                >
+                  Save
+                </button>
+              </div>
             </>
           )}
-
-          <DocsView
-            productDocs={productManuals}
-            selectedProduct={selectedProduct}
-            onDelete={() => {}}
-            type="manuals"
-          />
         </>
       )}
     </div>

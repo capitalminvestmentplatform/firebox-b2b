@@ -55,7 +55,7 @@ const DataTable: React.FC<DataTableProps> = ({
               {row.role === "User" ? (
                 <button
                   onClick={() => sendEmail(row._id)}
-                  className="bg-primaryBG hover:bg-primaryBG text-white py-1 px-3 rounded-md text-xs font-semibold"
+                  className="bg-secondaryColor hover:bg-secondaryColor text-textColor py-1 px-3 rounded-md text-xs font-semibold"
                 >
                   Send
                 </button>
@@ -71,16 +71,16 @@ const DataTable: React.FC<DataTableProps> = ({
                     description="Are you sure you want to delete this user? This action cannot be undone."
                     onConfirm={() => handleDelete(row._id)}
                   >
-                    <button className="bg-white/80 p-1 rounded hover:bg-red-200">
-                      <Trash size={16} className="text-red-600" />
+                    <button className="bg-secondaryColor p-1">
+                      <Trash size={16} className="text-textColor" />
                     </button>
                   </ConfirmModal>
 
                   <Link
                     href={`/dashboard/users/${row._id}`}
-                    className="bg-white/80 p-1 rounded hover:bg-green-200"
+                    className="bg-textColor p-1"
                   >
-                    <Pencil size={16} className="text-primaryBG" />
+                    <Pencil size={16} className="text-primaryColor" />
                   </Link>
                 </>
               )}

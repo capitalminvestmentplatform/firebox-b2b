@@ -67,14 +67,15 @@ export async function GET(req: NextRequest) {
     const rawLogs = await DownloadLog.find(filter)
       .sort({ createdAt: -1 })
       .populate("pId", "name")
-      .populate("uId", "firstName lastName")
+      .populate("uId", "firstName lastName role")
       .populate("mediaId", "url")
       .lean();
 
     const downloadLogs = rawLogs.map((log) => ({
       _id: log._id,
       productName: log.pId?.name || "-",
-      user: log.uId ? `${log.uId.firstName} ${log.uId.lastName}` : "-",
+      userName: log.uId ? `${log.uId.firstName} ${log.uId.lastName}` : "-",
+      uId: log.uId.role,
       mediaUrl: log.mediaId?.url || "-",
       mediaType: log.mediaType,
       createdAt: log.createdAt,

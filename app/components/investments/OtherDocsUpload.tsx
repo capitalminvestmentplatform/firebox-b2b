@@ -53,12 +53,12 @@ export function OtherDocsUpload({
 
       {docs.length > 0 && (
         <ul className="mt-4 space-y-2">
-          <li className="flex items-center justify-between bg-gray-100 rounded p-2 text-sm">
+          <li className="flex items-center justify-between bg-secondaryColor rounded p-2 text-sm">
             <span className="truncate">{getDocName(docs[0])}</span>
             <button
               type="button"
               onClick={handleRemove}
-              className="ml-2 text-red-600 hover:text-red-800"
+              className="ml-2 text-primaryColor hover:text-primaryColor"
             >
               <X size={16} />
             </button>

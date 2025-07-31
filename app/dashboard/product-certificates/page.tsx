@@ -7,13 +7,14 @@ import { toast } from "sonner";
 import { useProductDropdown } from "@/hooks/useProductDropdown";
 import DocsView from "@/app/components/DocsView";
 import { OtherDocsUpload } from "@/app/components/investments/OtherDocsUpload";
+import GalleryView from "@/app/components/GalleryView";
 
 const ProductCertificatesPage = () => {
   const userRole = getLoggedInUser()?.role;
   const { selectedProduct, setSelectedProduct, options, isLoading, error } =
     useProductDropdown();
 
-  const [certificate, setCertificate] = useState<File | string | null>(null); // ⬅️ single catalog
+  const [certificate, setCertificate] = useState<(File | string)[]>([]); // ⬅️ single catalog
   const [productCertificates, setProductCertificates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [buttonLoading, setButtonLoading] = useState(false);
@@ -55,7 +56,10 @@ const ProductCertificatesPage = () => {
     const uploadedUrl =
       typeof certificate === "string"
         ? certificate
-        : await uploadFileToCloudinary(certificate, "product/certificates");
+        : await uploadFileToCloudinary(
+            certificate[0] as File,
+            "product/certificates"
+          );
 
     const res = await fetch("/api/product-certificates", {
       method: "POST",
@@ -73,7 +77,7 @@ const ProductCertificatesPage = () => {
     }
 
     setButtonLoading(false);
-    setCertificate(null);
+    setCertificate([]);
     setSelectedProduct("");
     fetchProductCertificates();
     toast.success(response.message);
@@ -87,41 +91,47 @@ const ProductCertificatesPage = () => {
         <p className="text-red-500">{error}</p>
       ) : (
         <>
-          <ProductDropdown
-            label="Product"
-            selected={selectedProduct}
-            onChange={setSelectedProduct}
-            options={options}
+          <GalleryView
+            products={options}
+            productItems={productCertificates}
+            selectedProduct={selectedProduct}
+            setSelectedProduct={setSelectedProduct}
+            fetchProductItems={fetchProductCertificates}
+            type="certificates"
           />
 
-          {userRole === "Admin" && (
+          {userRole === "Admin" && selectedProduct && (
             <>
               <OtherDocsUpload
-                docs={certificate ? [certificate] : []}
-                setDocs={(docs) => setCertificate(docs[0] ?? null)}
+                docs={certificate}
+                setDocs={(docs) => setCertificate(docs)}
                 type="certificate"
               />
 
-              <button
-                onClick={handleSubmit}
-                disabled={buttonLoading || !certificate}
-                className={`bg-primaryBG hover:bg-primaryBG text-sm font-bold text-white py-2 px-4 rounded ${
-                  buttonLoading || !certificate
-                    ? "opacity-50 cursor-not-allowed"
-                    : ""
-                }`}
-              >
-                Upload
-              </button>
+              <div className="flex gap-5">
+                <button
+                  onClick={() => {
+                    setCertificate([]);
+                    setSelectedProduct("");
+                  }}
+                  className={`bg-white hover:bg-white text-xs font-bold text-primaryColor py-2 px-4 rounded`}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleSubmit}
+                  disabled={buttonLoading || certificate.length === 0}
+                  className={`bg-secondaryColor hover:bg-secondaryColor text-xs font-bold text-textColor py-2 px-4 rounded ${
+                    buttonLoading || certificate.length === 0
+                      ? "opacity-50 cursor-not-allowed"
+                      : ""
+                  }`}
+                >
+                  Save
+                </button>
+              </div>
             </>
           )}
-
-          <DocsView
-            productDocs={productCertificates}
-            selectedProduct={selectedProduct}
-            onDelete={() => {}}
-            type="certificates"
-          />
         </>
       )}
     </div>

@@ -32,16 +32,16 @@ export async function DELETE(request: Request) {
     await connectToDatabase();
 
     const url = new URL(request.url);
-    const imagesParam = url.searchParams.get("images");
+    const params = url.searchParams.get("items");
 
-    if (!imagesParam) {
-      return sendErrorResponse(400, "No image IDs provided");
+    if (!params) {
+      return sendErrorResponse(400, "No IDs provided");
     }
 
-    const imageIds = imagesParam.split(",");
+    const ids = params.split(",");
 
     const result = await ProductImage.deleteMany({
-      _id: { $in: imageIds },
+      _id: { $in: ids },
     });
 
     if (result.deletedCount === 0) {

@@ -87,7 +87,7 @@ const UsersPage = () => {
       <div className="my-10 flex justify-end">
         <Link
           href={`${pathname}/add`}
-          className={`bg-primaryBG hover:bg-primaryBG text-white px-5 py-2 rounded-md text-sm font-semibold`}
+          className={`bg-secondaryColor hover:bg-secondaryColor text-textColor px-5 py-2 rounded-md text-sm font-semibold`}
         >
           Add new user
         </Link>

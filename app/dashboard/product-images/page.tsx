@@ -1,7 +1,5 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
-import { ProductDropdown } from "@/app/components/ProductDropdown";
 import { GalleryImagesUpload } from "@/app/components/investments/GalleryImagesUpload";
 import { getLoggedInUser, uploadFileToCloudinary } from "@/utils/client";
 import { toast } from "sonner";
@@ -92,20 +90,13 @@ const ProductImagesPage = () => {
         <p className="text-red-500">{error}</p>
       ) : (
         <>
-          {/* <ProductDropdown
-            label="Product"
-            selected={selectedProduct}
-            onChange={setSelectedProduct}
-            options={options.map((p) => p)} // assuming _id is the value needed
-          /> */}
-
           <GalleryView
             products={options}
-            productImages={productImages}
+            productItems={productImages}
             selectedProduct={selectedProduct}
             setSelectedProduct={setSelectedProduct}
-            onDelete={() => {}}
-            fetchProductImages={fetchProductImages}
+            fetchProductItems={fetchProductImages}
+            type="images"
           />
 
           {userRole === "Admin" && selectedProduct && (
@@ -118,14 +109,14 @@ const ProductImagesPage = () => {
                     setImages([]);
                     setSelectedProduct("");
                   }}
-                  className={`bg-white hover:bg-white text-sm font-bold text-primaryColor py-2 px-4 rounded`}
+                  className={`bg-white hover:bg-white text-xs font-bold text-primaryColor py-2 px-4 rounded`}
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleSubmit}
                   disabled={buttonLoading || images.length === 0}
-                  className={`bg-secondaryColor hover:bg-secondaryColor text-sm font-bold text-textColor py-2 px-4 rounded ${
+                  className={`bg-secondaryColor hover:bg-secondaryColor text-xs font-bold text-textColor py-2 px-4 rounded ${
                     buttonLoading || images.length === 0
                       ? "opacity-50 cursor-not-allowed"
                       : ""

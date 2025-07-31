@@ -7,12 +7,13 @@ import { toast } from "sonner";
 import { useProductDropdown } from "@/hooks/useProductDropdown";
 import VideosView from "@/app/components/VideosView";
 import { VideosUpload } from "@/app/components/investments/VideoUpload";
+import GalleryView from "@/app/components/GalleryView";
 
 const ProductVideosPage = () => {
   const userRole = getLoggedInUser()?.role;
   const { selectedProduct, setSelectedProduct, options, isLoading, error } =
     useProductDropdown();
-  const [video, setVideo] = useState<File | string | null>(null); // 🔹 single video
+  const [video, setVideo] = useState<(File | string)[]>([]); // 🔹 single video
   const [productVideos, setProductVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [buttonLoading, setButtonLoading] = useState(false);
@@ -51,10 +52,18 @@ const ProductVideosPage = () => {
 
     setButtonLoading(true);
 
-    const uploadedUrl =
-      typeof video === "string"
-        ? video
-        : await uploadFileToCloudinary(video, "product/videos");
+    let uploadedUrl: string | null = null;
+    if (typeof video === "string") {
+      uploadedUrl = video;
+    } else if (Array.isArray(video) && video[0] instanceof File) {
+      uploadedUrl = await uploadFileToCloudinary(video[0], "product/videos");
+    } else if (video instanceof File) {
+      uploadedUrl = await uploadFileToCloudinary(video, "product/videos");
+    } else {
+      toast.error("Invalid video file");
+      setButtonLoading(false);
+      return;
+    }
 
     const res = await fetch("/api/product-videos", {
       method: "POST",
@@ -72,7 +81,7 @@ const ProductVideosPage = () => {
     }
 
     setButtonLoading(false);
-    setVideo(null);
+    setVideo([]);
     setSelectedProduct("");
     fetchProductVideos();
     toast.success(response.message);
@@ -86,37 +95,45 @@ const ProductVideosPage = () => {
         <p className="text-red-500">{error}</p>
       ) : (
         <>
-          <ProductDropdown
-            label="Product"
-            selected={selectedProduct}
-            onChange={setSelectedProduct}
-            options={options}
+          <GalleryView
+            products={options}
+            productItems={productVideos}
+            selectedProduct={selectedProduct}
+            setSelectedProduct={setSelectedProduct}
+            fetchProductItems={fetchProductVideos}
+            type="videos"
           />
 
-          {userRole === "Admin" && (
+          {userRole === "Admin" && selectedProduct && (
             <>
               <VideosUpload
-                videos={video ? [video] : []}
-                setVideos={(videos) => setVideo(videos[0] ?? null)} // 🔹 single video
+                videos={video}
+                setVideos={(videos) => setVideo(videos)} // 🔹 single video
               />
-
-              <button
-                onClick={handleSubmit}
-                disabled={buttonLoading || !video}
-                className={`bg-primaryBG hover:bg-primaryBG text-sm font-bold text-white py-2 px-4 rounded ${
-                  buttonLoading || !video ? "opacity-50 cursor-not-allowed" : ""
-                }`}
-              >
-                Upload
-              </button>
+              <div className="flex gap-5">
+                <button
+                  onClick={() => {
+                    setVideo([]);
+                    setSelectedProduct("");
+                  }}
+                  className={`bg-white hover:bg-white text-xs font-bold text-primaryColor py-2 px-4 rounded`}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleSubmit}
+                  disabled={buttonLoading || !video}
+                  className={`bg-secondaryColor hover:bg-secondaryColor text-xs font-bold text-textColor py-2 px-4 rounded ${
+                    buttonLoading || !video
+                      ? "opacity-50 cursor-not-allowed"
+                      : ""
+                  }`}
+                >
+                  Save
+                </button>
+              </div>
             </>
           )}
-
-          <VideosView
-            productVideos={productVideos}
-            selectedProduct={selectedProduct}
-            onDelete={() => {}}
-          />
         </>
       )}
     </div>
