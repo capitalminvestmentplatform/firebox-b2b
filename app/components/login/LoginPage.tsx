@@ -32,7 +32,7 @@ const LoginPage = () => {
 
         <form onSubmit={handleSubmit(onSubmit)} className="">
           <h1 className="text-4xl font-bold lg:mt-10 mb-10 text-center">
-            Access Portal
+            Distributor Login
           </h1>
 
           {/* Email Field */}
