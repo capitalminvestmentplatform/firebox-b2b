@@ -171,7 +171,7 @@ const AdminSection = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <div className="relative w-12 h-12 rounded-full overflow-hidden">
+                          <div className="relative w-12 h-12 overflow-hidden">
                             {log.mediaUrl ? (
                               <Image
                                 src={

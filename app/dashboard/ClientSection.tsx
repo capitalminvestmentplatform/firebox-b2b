@@ -56,7 +56,7 @@ const ClientSection = () => {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
         {[...Array(6)].map((_, i) => (
-          <Skeleton key={i} className="h-40 w-full rounded-md" />
+          <Skeleton key={i} className="h-40 w-full" />
         ))}
       </div>
     );
@@ -98,16 +98,16 @@ const ClientSection = () => {
                       alt="Recent Image"
                       width={112}
                       height={112}
-                      className="rounded object-cover w-28 h-28"
+                      className="object-cover w-28 h-28"
                     />
                   ) : type === "videos" ? (
                     <video
                       src={item.url}
                       muted
-                      className="w-28 h-28 rounded object-cover"
+                      className="w-28 h-28 object-cover"
                     />
                   ) : (
-                    <div className="flex flex-col items-center justify-center text-sm p-2 border border-secondaryColor h-28 w-28 text-center bg-primaryColor_1 hover:bg-primaryColor_1 transition-colors rounded-md">
+                    <div className="flex flex-col items-center justify-center text-sm p-2 border border-secondaryColor h-28 w-28 text-center bg-primaryColor_1 hover:bg-primaryColor_1 transition-colors">
                       <FaFileAlt className="text-2xl mb-1" />
                       <span className="line-clamp-2 break-words">
                         {item.name || "Document"}

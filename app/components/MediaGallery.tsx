@@ -54,7 +54,7 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({
                 isDeleted
                   ? "border-red-600 opacity-50"
                   : "border border-secondaryColor"
-              } p-1 rounded`}
+              } p-1`}
             >
               <div
                 className="cursor-pointer w-32 h-20 flex items-center justify-center overflow-hidden"
@@ -92,7 +92,7 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({
                         : [...prev, item._id]
                     );
                   }}
-                  className="absolute top-1 right-1 p-1 bg-red-600 text-white shadow-md rounded"
+                  className="absolute top-1 right-1 p-1 bg-red-600 text-white shadow-md"
                   title="Delete"
                 >
                   <FaTrash size={10} />
@@ -108,7 +108,7 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({
           <button
             onClick={onDeleteConfirm}
             disabled={buttonLoading || deletedItems.length === 0}
-            className={`bg-secondaryColor hover:bg-secondaryColor text-white text-xs font-bold py-2 px-4 rounded ${
+            className={`bg-secondaryColor hover:bg-secondaryColor text-white text-xs font-bold py-2 px-4 ${
               buttonLoading || deletedItems.length === 0
                 ? "opacity-50 cursor-not-allowed"
                 : ""
@@ -118,7 +118,7 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({
           </button>
           <button
             onClick={onCancel}
-            className="bg-gray-300 hover:bg-gray-400 text-black text-xs font-bold py-2 px-4 rounded"
+            className="bg-gray-300 hover:bg-gray-400 text-black text-xs font-bold py-2 px-4"
           >
             Cancel
           </button>

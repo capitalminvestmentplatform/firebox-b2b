@@ -13,9 +13,9 @@ module.exports = {
         homeBackground: "url('/images/background.jpg')",
       },
       colors: {
-        primaryColor: "#1c1312",
-        primaryColor_1: "#101827",
-        secondaryColor: "#CD4054",
+        primaryColor: "#251F2B",
+        primaryColor_1: "#000000",
+        secondaryColor: "#C84150",
         textColor: "#fff",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

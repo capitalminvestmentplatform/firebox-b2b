@@ -16,7 +16,7 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
     <Sidebar
       collapsible="icon"
       {...props}
-      className="bg-gray-900 text-textColor border-primaryColor_1"
+      className="bg-primaryColor_1 text-textColor border-primaryColor_1"
     >
       <SidebarHeader>
         <TeamSwitcher />

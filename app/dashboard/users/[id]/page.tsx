@@ -167,7 +167,7 @@ const EditUserPage = () => {
   };
   return (
     <div className="flex flex-col items-center p-6">
-      <Card className="w-full shadow-lg rounded-2xl">
+      <Card className="w-full shadow-lg">
         <CardHeader>
           <CardTitle className="text-xl font-semibold">User Profile</CardTitle>
         </CardHeader>

@@ -52,7 +52,7 @@ const DocsView = ({
             .map((doc: any, index: number) => (
               <div
                 key={index}
-                className="relative flex items-center justify-between bg-gray-100 rounded p-3 group"
+                className="relative flex items-center justify-between bg-gray-100 p-3 group"
               >
                 <div className="flex items-center gap-2 overflow-hidden">
                   <FaFileAlt className="text-blue-600" />
@@ -68,7 +68,7 @@ const DocsView = ({
                         e.stopPropagation();
                         onDelete?.(index);
                       }}
-                      className="p-1 bg-red-500 text-white text-xs rounded hover:bg-red-600"
+                      className="p-1 bg-red-500 text-white text-xs hover:bg-red-600"
                     >
                       <FaTrash />
                     </button>
@@ -78,7 +78,7 @@ const DocsView = ({
                       e.stopPropagation();
                       handleDownload(doc.url, doc._id);
                     }}
-                    className="bg-primaryBG hover:bg-primaryBG text-sm font-bold text-white p-1 rounded"
+                    className="bg-primaryBG hover:bg-primaryBG text-sm font-bold text-white p-1"
                   >
                     <FaDownload />
                   </button>

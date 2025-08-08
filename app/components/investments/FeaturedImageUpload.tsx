@@ -27,7 +27,7 @@ export function FeaturedImageUpload({
               : defaultPreview || null;
         return (
           <>
-            <label className="relative block h-48 w-full border-4 border-dotted rounded-md cursor-pointer">
+            <label className="relative block h-48 w-full border-4 border-dotted cursor-pointer">
               <input
                 type="file"
                 accept="image/*"
@@ -55,14 +55,14 @@ export function FeaturedImageUpload({
                 <img
                   src={previewUrl}
                   alt="Preview"
-                  className="w-32 h-20 object-cover rounded"
+                  className="w-32 h-20 object-cover"
                 />
                 <button
                   type="button"
                   onClick={() => {
                     field.onChange(undefined);
                   }}
-                  className="absolute top-0 right-0 bg-red-600 text-white text-xs rounded-full p-1 transform translate-x-1/2 -translate-y-1/2 hover:bg-red-700"
+                  className="absolute top-0 right-0 bg-red-600 text-white text-xs p-1 transform translate-x-1/2 -translate-y-1/2 hover:bg-red-700"
                 >
                   <X size={12} />
                 </button>

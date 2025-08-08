@@ -49,7 +49,7 @@ const VideosView = ({
           .map((video: any, index: number) => (
             <div
               key={index}
-              className="relative group border border-gray-300 rounded overflow-hidden"
+              className="relative group border border-gray-300 overflow-hidden"
             >
               <video
                 src={video.url}
@@ -64,7 +64,7 @@ const VideosView = ({
                       e.stopPropagation();
                       onDelete?.(index);
                     }}
-                    className="p-1 bg-red-500 text-white text-xs rounded hover:bg-red-600"
+                    className="p-1 bg-red-500 text-white text-xs hover:bg-red-600"
                   >
                     <FaTrash />
                   </button>
@@ -74,7 +74,7 @@ const VideosView = ({
                     e.stopPropagation();
                     handleDownload(video.url, video._id);
                   }}
-                  className="bg-primaryBG hover:bg-primaryBG text-sm font-bold text-white p-1 rounded"
+                  className="bg-primaryBG hover:bg-primaryBG text-sm font-bold text-white p-1"
                 >
                   <FaDownload />
                 </button>

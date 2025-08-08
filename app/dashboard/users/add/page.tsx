@@ -90,7 +90,7 @@ const AddUserPage = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="p-3 lg:p-6 bg-white rounded-lg shadow"
+      className="p-3 lg:p-6 bg-white shadow"
     >
       <div className="lg:grid lg:grid-cols-2 gap-4">
         <div>

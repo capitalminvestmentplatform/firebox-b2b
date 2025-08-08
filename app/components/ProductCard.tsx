@@ -21,7 +21,7 @@ const ProductCard = ({
 }) => {
   return (
     <div
-      className="relative group cursor-pointer rounded overflow-hidden shadow-lg p-5"
+      className="relative group cursor-pointer overflow-hidden shadow-lg p-5"
       onClick={() => {
         if (items.length === 0) return;
         onViewGallery();
@@ -32,7 +32,7 @@ const ProductCard = ({
         alt={product?.name || "Product Image"}
         width={500}
         height={288}
-        className="w-full h-72 object-cover object-center transition-transform duration-300 group-hover:scale-105 rounded"
+        className="w-full h-72 object-cover object-center transition-transform duration-300 group-hover:scale-105"
       />
 
       {/* Overlay */}

@@ -44,7 +44,7 @@ export function VideosUpload({
 
   return (
     <>
-      <label className="relative block h-48 w-full border-4 border-dotted rounded-md cursor-pointer">
+      <label className="relative block h-48 w-full border-4 border-dotted cursor-pointer">
         <input
           type="file"
           accept="video/*"
@@ -59,15 +59,11 @@ export function VideosUpload({
       <div className="flex flex-wrap gap-3 mt-4">
         {previews.map((src, index) => (
           <div key={index} className="relative w-40 h-24">
-            <video
-              src={src}
-              controls
-              className="w-full h-full object-cover rounded"
-            />
+            <video src={src} controls className="w-full h-full object-cover" />
             <button
               type="button"
               onClick={() => handleRemove(index)}
-              className="absolute top-0 right-0 bg-red-600 text-white text-xs rounded-full p-1 transform translate-x-1/2 -translate-y-1/2 hover:bg-red-700"
+              className="absolute top-0 right-0 bg-red-600 text-white text-xs p-1 transform translate-x-1/2 -translate-y-1/2 hover:bg-red-700"
             >
               <X size={12} />
             </button>

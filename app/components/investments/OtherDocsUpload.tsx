@@ -39,7 +39,7 @@ export function OtherDocsUpload({
 
   return (
     <>
-      <label className="relative block h-48 w-full border-4 border-dotted rounded-md cursor-pointer">
+      <label className="relative block h-48 w-full border-4 border-dotted cursor-pointer">
         <input
           type="file"
           accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv"
@@ -53,7 +53,7 @@ export function OtherDocsUpload({
 
       {docs.length > 0 && (
         <ul className="mt-4 space-y-2">
-          <li className="flex items-center justify-between bg-secondaryColor rounded p-2 text-sm">
+          <li className="flex items-center justify-between bg-secondaryColor p-2 text-sm">
             <span className="truncate">{getDocName(docs[0])}</span>
             <button
               type="button"

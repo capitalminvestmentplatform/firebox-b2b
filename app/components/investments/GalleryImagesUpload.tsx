@@ -65,12 +65,12 @@ export function GalleryImagesUpload({
             <img
               src={src}
               alt={`preview-${index}`}
-              className="w-32 h-20 object-cover rounded"
+              className="w-32 h-20 object-cover"
             />
             <button
               type="button"
               onClick={() => handleRemove(index)}
-              className="absolute top-0 right-0 bg-secondaryColor text-textColor text-xs rounded-full p-1 transform translate-x-1/2 -translate-y-1/2 hover:bg-red-700"
+              className="absolute top-0 right-0 bg-secondaryColor text-textColor text-xs p-1 transform translate-x-1/2 -translate-y-1/2 hover:bg-red-700"
             >
               <X size={12} />
             </button>

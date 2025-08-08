@@ -17,7 +17,7 @@ const MessageModal = ({ message }: { message: string }) => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <CustomButton
-          classes="text-xs px-2 py-1 h-7 bg-primaryBG hover:bg-primaryBG text-white rounded-md font-normal"
+          classes="text-xs px-2 py-1 h-7 bg-primaryBG hover:bg-primaryBG text-white font-normal"
           name="View"
           type="button"
         />

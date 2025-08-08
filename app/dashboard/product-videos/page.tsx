@@ -116,14 +116,14 @@ const ProductVideosPage = () => {
                     setVideo([]);
                     setSelectedProduct("");
                   }}
-                  className={`bg-white hover:bg-white text-xs font-bold text-primaryColor py-2 px-4 rounded`}
+                  className={`bg-white hover:bg-white text-xs font-bold text-primaryColor py-2 px-4`}
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleSubmit}
                   disabled={buttonLoading || !video}
-                  className={`bg-secondaryColor hover:bg-secondaryColor text-xs font-bold text-textColor py-2 px-4 rounded ${
+                  className={`bg-secondaryColor hover:bg-secondaryColor text-xs font-bold text-textColor py-2 px-4 ${
                     buttonLoading || !video
                       ? "opacity-50 cursor-not-allowed"
                       : ""

@@ -55,7 +55,7 @@ const DataTable: React.FC<DataTableProps> = ({
               {row.role === "User" ? (
                 <button
                   onClick={() => sendEmail(row._id)}
-                  className="bg-secondaryColor hover:bg-secondaryColor text-textColor py-1 px-3 rounded-md text-xs font-semibold"
+                  className="bg-secondaryColor hover:bg-secondaryColor text-textColor py-1 px-3 text-xs font-semibold"
                 >
                   Send
                 </button>

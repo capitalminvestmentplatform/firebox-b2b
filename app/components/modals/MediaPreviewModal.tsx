@@ -51,20 +51,20 @@ const MediaPreviewDialog: React.FC<MediaPreviewDialogProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-4xl bg-black p-0 rounded-lg text-white [&>button]:hidden">
-        <div className="relative w-full flex items-center justify-center bg-black rounded-lg min-h-[60vh]">
+      <DialogContent className="max-w-4xl bg-black p-0 text-white [&>button]:hidden">
+        <div className="relative w-full flex items-center justify-center bg-black min-h-[60vh]">
           {/* Main Preview */}
           {type === "image" ? (
             <img
               src={currentItem?.url}
               alt={`Slide ${currentIndex + 1}`}
-              className="max-h-[80vh] w-auto object-contain rounded-lg"
+              className="max-h-[80vh] w-auto object-contain"
             />
           ) : type === "video" ? (
             <video
               src={currentItem?.url}
               controls
-              className="max-h-[80vh] w-auto object-contain rounded-lg"
+              className="max-h-[80vh] w-auto object-contain"
             />
           ) : (
             <div className="flex flex-col items-center justify-center text-center">
@@ -106,7 +106,7 @@ const MediaPreviewDialog: React.FC<MediaPreviewDialogProps> = ({
             <div className="absolute top-4 right-4 flex gap-2">
               <button
                 onClick={() => onDownload(currentItem.url, currentItem._id)}
-                className="bg-secondaryColor hover:bg-secondaryColor text-sm font-bold text-white p-1 rounded"
+                className="bg-secondaryColor hover:bg-secondaryColor text-sm font-bold text-white p-1"
               >
                 <FaDownload />
               </button>

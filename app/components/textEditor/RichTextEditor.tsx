@@ -92,7 +92,7 @@ export default function RichTextEditor({ onChange, content = "" }: Props) {
   }
 
   return (
-    <div className="border rounded-md space-y-3">
+    <div className="border space-y-3">
       {/* Toolbar */}
       <div className="flex px-4 py-3 border-b-2 flex-wrap gap-3 items-center">
         {/* Font Size */}
@@ -100,7 +100,7 @@ export default function RichTextEditor({ onChange, content = "" }: Props) {
           onChange={(e) =>
             editor?.chain().focus().setFontSize(e.target.value).run()
           }
-          className="border px-2 py-1 rounded text-xs"
+          className="border px-2 py-1 text-xs"
         >
           <option value="">Size</option>
           <option value="12px">Small</option>
@@ -113,7 +113,7 @@ export default function RichTextEditor({ onChange, content = "" }: Props) {
         <button
           type="button"
           onClick={() => editor?.chain().focus().toggleBold().run()}
-          className="border p-1 rounded"
+          className="border p-1"
         >
           <Bold size={15} />
         </button>
@@ -122,7 +122,7 @@ export default function RichTextEditor({ onChange, content = "" }: Props) {
         <button
           type="button"
           onClick={() => editor?.chain().focus().toggleItalic().run()}
-          className="border p-1 rounded"
+          className="border p-1"
         >
           <Italic size={15} />
         </button>
@@ -131,7 +131,7 @@ export default function RichTextEditor({ onChange, content = "" }: Props) {
         <button
           type="button"
           onClick={() => editor?.chain().focus().toggleUnderline().run()}
-          className="border p-1 rounded"
+          className="border p-1"
         >
           <UnderlineIcon size={15} />
         </button>
@@ -140,7 +140,7 @@ export default function RichTextEditor({ onChange, content = "" }: Props) {
         <button
           type="button"
           onClick={() => editor?.chain().focus().toggleBulletList().run()}
-          className="border p-1 rounded"
+          className="border p-1"
         >
           <List size={15} />
         </button>
@@ -149,7 +149,7 @@ export default function RichTextEditor({ onChange, content = "" }: Props) {
         <button
           type="button"
           onClick={() => editor?.chain().focus().toggleOrderedList().run()}
-          className="border p-1 rounded"
+          className="border p-1"
         >
           <ListOrdered size={15} />
         </button>
@@ -158,28 +158,28 @@ export default function RichTextEditor({ onChange, content = "" }: Props) {
         <button
           type="button"
           onClick={() => editor?.chain().focus().setTextAlign("left").run()}
-          className="border p-1 rounded"
+          className="border p-1"
         >
           <AlignLeft size={15} />
         </button>
         <button
           type="button"
           onClick={() => editor?.chain().focus().setTextAlign("center").run()}
-          className="border p-1 rounded"
+          className="border p-1"
         >
           <AlignCenter size={15} />
         </button>
         <button
           type="button"
           onClick={() => editor?.chain().focus().setTextAlign("right").run()}
-          className="border p-1 rounded"
+          className="border p-1"
         >
           <AlignRight size={15} />
         </button>
         <button
           type="button"
           onClick={() => editor?.chain().focus().setTextAlign("justify").run()}
-          className="border p-1 rounded"
+          className="border p-1"
         >
           <AlignJustify size={15} />
         </button>
@@ -192,7 +192,7 @@ export default function RichTextEditor({ onChange, content = "" }: Props) {
             onChange={(e) =>
               editor?.chain().focus().setColor(e.target.value).run()
             }
-            className="w-6 h-6 p-0 border rounded"
+            className="w-6 h-6 p-0 border"
           />
         </label>
 
@@ -216,16 +216,13 @@ export default function RichTextEditor({ onChange, content = "" }: Props) {
         />
 
         {/* Icon button that triggers the input */}
-        <label
-          htmlFor="image-upload"
-          className="border p-1 rounded cursor-pointer"
-        >
+        <label htmlFor="image-upload" className="border p-1 cursor-pointer">
           <ImageIcon size={15} />
         </label>
 
         <button
           type="button"
-          className="border p-1 rounded cursor-pointer"
+          className="border p-1 cursor-pointer"
           onClick={() =>
             editor.commands.updateAttributes("image", { align: "left" })
           }
@@ -234,7 +231,7 @@ export default function RichTextEditor({ onChange, content = "" }: Props) {
         </button>
         <button
           type="button"
-          className="border p-1 rounded cursor-pointer"
+          className="border p-1 cursor-pointer"
           onClick={() =>
             editor.commands.updateAttributes("image", { align: "center" })
           }
@@ -243,7 +240,7 @@ export default function RichTextEditor({ onChange, content = "" }: Props) {
         </button>
         <button
           type="button"
-          className="border p-1 rounded cursor-pointer"
+          className="border p-1 cursor-pointer"
           onClick={() =>
             editor.commands.updateAttributes("image", { align: "right" })
           }
@@ -270,7 +267,7 @@ export default function RichTextEditor({ onChange, content = "" }: Props) {
                 );
               }
             }}
-            className="border p-1 rounded"
+            className="border p-1"
           >
             <LinkIcon size={15} />
           </button>
@@ -280,7 +277,7 @@ export default function RichTextEditor({ onChange, content = "" }: Props) {
             placeholder="https://example.com"
             value={linkUrl}
             onChange={(e) => setLinkUrl(e.target.value)}
-            className="border px-2 py-1 rounded text-xs w-38"
+            className="border px-2 py-1 text-xs w-38"
           />
         </div>
       </div>
