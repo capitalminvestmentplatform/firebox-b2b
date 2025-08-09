@@ -43,7 +43,7 @@ const LoginPage = () => {
               placeholder="Enter email"
               className="mt-1 ps-10 py-5 rounded-none"
             />
-            <Mail className="absolute left-3 top-1/2 mt-4 -translate-y-1/2 w-5 h-5 text-primaryColor" />
+            <Mail className="absolute left-3 top-1/2 mt-4 -translate-y-1/2 w-5 h-5 text-secondaryColor" />
             {errors.email && (
               <p className="text-red-500 text-sm">{errors.email.message}</p>
             )}
@@ -52,7 +52,7 @@ const LoginPage = () => {
           {/* Password Field */}
           <div className="relative mb-7">
             <Label htmlFor="password">Enter your Pin</Label>
-            <KeyRound className="absolute left-3 top-1/2 mt-4 -translate-y-1/2 w-5 h-5 text-primaryColor" />
+            <KeyRound className="absolute left-3 top-1/2 mt-4 -translate-y-1/2 w-5 h-5 text-secondaryColor" />
             <Input
               type={!showPassword ? "password" : "text"}
               {...register("password")}
@@ -61,12 +61,12 @@ const LoginPage = () => {
             />
             {!showPassword ? (
               <EyeOff
-                className="absolute right-3 top-1/2 mt-4 -translate-y-1/2 w-5 h-5 cursor-pointer text-primaryColor"
+                className="absolute right-3 top-1/2 mt-4 -translate-y-1/2 w-5 h-5 cursor-pointer text-secondaryColor"
                 onClick={() => setShowPassword(true)}
               />
             ) : (
               <Eye
-                className="absolute right-3 top-1/2 mt-4 -translate-y-1/2 w-5 h-5 cursor-pointer text-primaryColor"
+                className="absolute right-3 top-1/2 mt-4 -translate-y-1/2 w-5 h-5 cursor-pointer text-secondaryColor"
                 onClick={() => setShowPassword(false)}
               />
             )}
