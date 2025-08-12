@@ -24,7 +24,10 @@ export const uploadFileToCloudinary = async (
     "upload_preset",
     process.env.NEXT_PUBLIC_CLOUDINARY_PRESET || ""
   );
-  formData.append("folder", folder);
+  formData.append(
+    "folder",
+    `${process.env.NEXT_PUBLIC_CLOUDINARY_FOLDER_NAME}/${folder}`
+  );
 
   try {
     const response = await fetch(url, {

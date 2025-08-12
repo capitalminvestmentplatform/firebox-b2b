@@ -45,6 +45,31 @@ const ProductDocumentsPage = () => {
       return;
     }
 
+    // ✅ 5 MB limit per image
+    const MAX_BYTES = 5 * 1024 * 1024;
+    const fileLikes = (docs || []).filter(
+      (f: any) =>
+        (typeof window !== "undefined" && f instanceof window.File) ||
+        (f && f.constructor && f.constructor.name === "File")
+    );
+    const oversized = fileLikes.filter(
+      (f: string | File) => f instanceof File && f.size > MAX_BYTES
+    );
+
+    if (oversized.length) {
+      const names = oversized
+        .slice(0, 3)
+        .map((f: string | File) =>
+          f instanceof File ? f.name || "unnamed" : "unnamed"
+        );
+      toast.error(
+        `Each document must be ≤ 5 MB. Too large: ${names.join(", ")}${
+          oversized.length > 3 ? "…" : ""
+        }`
+      );
+      return;
+    }
+
     setButtonLoading(true);
 
     const formattedData = {
@@ -58,7 +83,7 @@ const ProductDocumentsPage = () => {
         formattedData.url.map(async (file: any) =>
           (typeof window !== "undefined" && file instanceof window.File) ||
           (file && file.constructor && file.constructor.name === "File")
-            ? await uploadFileToCloudinary(file, "product/docs")
+            ? await uploadFileToCloudinary(file, "docs")
             : file
         )
       );
@@ -127,6 +152,9 @@ const ProductDocumentsPage = () => {
                 >
                   Save
                 </button>
+                <p className="text-sm">
+                  (Max file size <span className="font-extrabold">5 MB</span>)
+                </p>
               </div>
             </>
           )}

@@ -51,15 +51,19 @@ const ProductCertificatesPage = () => {
       return;
     }
 
+    if (
+      typeof certificate[0] !== "string" &&
+      certificate[0]?.size > 5 * 1024 * 1024
+    ) {
+      toast.error("File size should not exceed 5 MB");
+      return;
+    }
     setButtonLoading(true);
 
     const uploadedUrl =
       typeof certificate === "string"
         ? certificate
-        : await uploadFileToCloudinary(
-            certificate[0] as File,
-            "product/certificates"
-          );
+        : await uploadFileToCloudinary(certificate[0] as File, "certificates");
 
     const res = await fetch("/api/product-certificates", {
       method: "POST",
@@ -129,6 +133,9 @@ const ProductCertificatesPage = () => {
                 >
                   Save
                 </button>
+                <p className="text-sm">
+                  (Max file size <span className="font-extrabold">5 MB</span>)
+                </p>
               </div>
             </>
           )}

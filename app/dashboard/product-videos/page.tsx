@@ -50,15 +50,20 @@ const ProductVideosPage = () => {
       return;
     }
 
+    if (typeof video[0] !== "string" && video[0]?.size > 25 * 1024 * 1024) {
+      toast.error("File size should not exceed 5 MB");
+      return;
+    }
+
     setButtonLoading(true);
 
     let uploadedUrl: string | null = null;
     if (typeof video === "string") {
       uploadedUrl = video;
     } else if (Array.isArray(video) && video[0] instanceof File) {
-      uploadedUrl = await uploadFileToCloudinary(video[0], "product/videos");
+      uploadedUrl = await uploadFileToCloudinary(video[0], "videos");
     } else if (video instanceof File) {
-      uploadedUrl = await uploadFileToCloudinary(video, "product/videos");
+      uploadedUrl = await uploadFileToCloudinary(video, "videos");
     } else {
       toast.error("Invalid video file");
       setButtonLoading(false);
@@ -131,6 +136,9 @@ const ProductVideosPage = () => {
                 >
                   Save
                 </button>
+                <p className="text-sm">
+                  (Max file size <span className="font-extrabold">25 MB</span>)
+                </p>
               </div>
             </>
           )}

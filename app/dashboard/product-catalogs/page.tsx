@@ -51,12 +51,17 @@ const ProductCatalogsPage = () => {
       return;
     }
 
+    if (typeof catalog[0] !== "string" && catalog[0]?.size > 5 * 1024 * 1024) {
+      toast.error("File size should not exceed 5 MB");
+      return;
+    }
+
     setButtonLoading(true);
 
     const uploadedUrl =
       typeof catalog === "string"
         ? catalog
-        : await uploadFileToCloudinary(catalog[0] as File, "product/catalogs");
+        : await uploadFileToCloudinary(catalog[0] as File, "catalogs");
 
     const res = await fetch("/api/product-catalogs", {
       method: "POST",
@@ -125,6 +130,9 @@ const ProductCatalogsPage = () => {
                 >
                   Save
                 </button>
+                <p className="text-sm">
+                  (Max file size <span className="font-extrabold">5 MB</span>)
+                </p>
               </div>
             </>
           )}
