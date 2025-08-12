@@ -113,7 +113,7 @@ const ProductDocumentsPage = () => {
   return (
     <div className="space-y-6">
       {isLoading ? (
-        <p>Loading products...</p>
+        <p className="font-body">Loading products...</p>
       ) : error ? (
         <p className="text-red-500">{error}</p>
       ) : (

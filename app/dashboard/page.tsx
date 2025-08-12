@@ -10,7 +10,7 @@ const DashboardPage: React.FC = () => {
   console.log("role", role);
   return (
     <div className="container mx-auto max-w-[1440px] px-4">
-      <p className="text-2xl mb-10 font-semibold">
+      <p className="text-2xl mb-10 font-semibold font-heading">
         Welcome {firstName} {lastName}
       </p>
       {role === "Admin" ? <AdminSection /> : <ClientSection />}

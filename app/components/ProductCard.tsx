@@ -37,8 +37,10 @@ const ProductCard = ({
 
       {/* Overlay */}
       <div className="absolute inset-0 bg-primaryColor_1 bg-opacity-60 flex flex-col justify-between p-3">
-        <h3 className="text-white font-semibold text-lg">{product?.name}</h3>
-        <span className="text-white text-xs self-start bg-secondaryColor py-1 px-2 font-bold">
+        <h3 className="text-white font-semibold text-lg font-heading">
+          {product?.name}
+        </h3>
+        <span className="text-white text-xs self-start bg-secondaryColor py-1 px-2 font-bold font-heading">
           {items.length} item{items.length > 1 ? "s" : ""}
         </span>
       </div>

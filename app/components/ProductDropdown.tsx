@@ -35,7 +35,11 @@ export function ProductDropdown({
         </SelectTrigger>
         <SelectContent className="bg-primaryColor_1 text-white border-none">
           {options.map((product) => (
-            <SelectItem key={product._id} value={product._id}>
+            <SelectItem
+              key={product._id}
+              value={product._id}
+              className="font-body"
+            >
               {product.name}
             </SelectItem>
           ))}

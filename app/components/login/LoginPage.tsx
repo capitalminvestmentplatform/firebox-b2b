@@ -31,33 +31,39 @@ const LoginPage = () => {
         />
 
         <form onSubmit={handleSubmit(onSubmit)} className="">
-          <h1 className="text-4xl font-bold lg:mt-10 mb-10 text-center">
+          <h1 className="text-4xl font-bold lg:mt-10 mb-10 text-center font-heading">
             Distributor Login
           </h1>
 
           {/* Email Field */}
           <div className="relative mb-7">
-            <Label htmlFor="email">Enter your Email/Client code</Label>
+            <Label htmlFor="email" className="font-body">
+              Enter your Email/Client code
+            </Label>
             <Input
               {...register("email")}
               placeholder="Enter email"
-              className="mt-1 ps-10 py-5 rounded-none"
+              className="mt-1 ps-10 py-5 rounded-none font-body"
             />
             <Mail className="absolute left-3 top-1/2 mt-4 -translate-y-1/2 w-5 h-5 text-secondaryColor" />
             {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email.message}</p>
+              <p className="text-red-500 text-sm font-body">
+                {errors.email.message}
+              </p>
             )}
           </div>
 
           {/* Password Field */}
           <div className="relative mb-7">
-            <Label htmlFor="password">Enter your Pin</Label>
+            <Label htmlFor="password" className="font-body">
+              Enter your Pin
+            </Label>
             <KeyRound className="absolute left-3 top-1/2 mt-4 -translate-y-1/2 w-5 h-5 text-secondaryColor" />
             <Input
               type={!showPassword ? "password" : "text"}
               {...register("password")}
               placeholder="Enter 4-digit pin"
-              className="mt-1 ps-10 py-5 rounded-none"
+              className="mt-1 ps-10 py-5 rounded-none font-body"
             />
             {!showPassword ? (
               <EyeOff
@@ -71,20 +77,22 @@ const LoginPage = () => {
               />
             )}
             {errors.password && (
-              <p className="text-red-500 text-sm">{errors.password.message}</p>
+              <p className="text-red-500 text-sm font-body">
+                {errors.password.message}
+              </p>
             )}
           </div>
 
           <Link
             href="/auth/forgot-pin"
-            className="text-sm hover:underline mb-4 block"
+            className="text-sm hover:underline mb-4 block font-body"
           >
             Forgot pin?
           </Link>
           <CustomButton
             type="submit"
             name="Login"
-            classes="me-3 bg-secondaryColor rounded-none w-full"
+            classes="me-3 bg-secondaryColor rounded-none w-full font-heading"
             state={loading}
           />
         </form>

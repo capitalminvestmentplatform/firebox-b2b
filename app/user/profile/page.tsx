@@ -212,7 +212,9 @@ const ProfilePage = () => {
     <div className="flex flex-col items-center p-6">
       <Card className="w-full shadow-lg rounded-none border-none bg-primaryColor_1">
         <CardHeader>
-          <CardTitle className="text-xl font-semibold">User Profile</CardTitle>
+          <CardTitle className="text-xl font-semibold font-heading">
+            User Profile
+          </CardTitle>
         </CardHeader>
         <CardContent>
           {loading ? (

@@ -18,7 +18,7 @@ export function NavUser() {
               {firstName?.charAt(0) || ""} {lastName?.charAt(0) || ""}
             </AvatarFallback>
           </Avatar>
-          <div className="grid flex-1 text-left text-sm leading-tight">
+          <div className="grid flex-1 text-left text-sm leading-tight font-body">
             <span className="truncate font-semibold">
               {firstName} {lastName}
             </span>

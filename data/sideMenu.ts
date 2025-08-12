@@ -1,18 +1,11 @@
 import {
-  Activity,
-  Book,
-  BookCheck,
-  CalendarCheck,
   Files,
-  FileStack,
   Home,
-  Landmark,
+  Image,
   Newspaper,
-  Phone,
-  Receipt,
-  Shield,
   StickyNote,
   Users,
+  Video,
 } from "lucide-react";
 
 export const sideMenu = [
@@ -25,11 +18,11 @@ export const sideMenu = [
   {
     title: "Images",
     url: "/dashboard/product-images",
-    icon: Home,
+    icon: Image,
   },
   {
     title: "Videos",
-    icon: Landmark,
+    icon: Video,
     url: "/dashboard/product-videos",
   },
   {
@@ -49,7 +42,7 @@ export const sideMenu = [
   },
   {
     title: "Certificates",
-    icon: Newspaper,
+    icon: Files,
     url: "/dashboard/product-certificates",
   },
   {

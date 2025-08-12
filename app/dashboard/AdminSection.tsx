@@ -115,7 +115,11 @@ const AdminSection = () => {
             </SelectTrigger>
             <SelectContent className="bg-primaryColor_1 border-none text-textColor">
               {users?.map((user: any) => (
-                <SelectItem key={user._id} value={user._id}>
+                <SelectItem
+                  key={user._id}
+                  value={user._id}
+                  className="font-body"
+                >
                   {user.firstName} {user.lastName} ({user.email})
                 </SelectItem>
               ))}
@@ -129,21 +133,23 @@ const AdminSection = () => {
             key={type}
             className="bg-primaryColor_1 shadow p-4 hover:shadow-md transition"
           >
-            <h3 className="text-lg font-semibold capitalize mb-2">
+            <h3 className="text-lg font-semibold capitalize mb-2 font-heading">
               {mediaTypeLabelMap[type] || type}
             </h3>
-            <p className="text-5xl font-bold">{count}</p>
-            <p className="text-sm text-gray-500">Downloads</p>
+            <p className="text-5xl font-bold font-heading">{count}</p>
+            <p className="text-sm text-gray-500 font-body">Downloads</p>
           </div>
         ))}
       </div>
 
       {downloadLogs.length > 0 ? (
         <div className="mt-6">
-          <h2 className="text-lg font-semibold mb-5">Download Logs</h2>
+          <p className="text-lg font-semibold mb-5 font-heading">
+            Download Logs
+          </p>
           <Table>
             <TableHeader>
-              <TableRow className="bg-secondaryColor hover:bg-secondaryColor text-textColor border-b-secondaryColor">
+              <TableRow className="bg-secondaryColor hover:bg-secondaryColor text-textColor border-b-secondaryColor font-heading">
                 <TableHead>User</TableHead>
                 <TableHead>Product</TableHead>
                 <TableHead>Media Type</TableHead>
@@ -156,7 +162,7 @@ const AdminSection = () => {
                 .filter((log: any) => log.uId !== "Admin")
                 .map((log: any) => (
                   <TableRow
-                    className="bg-primaryColor_1 text-textColor border-b-secondaryColor"
+                    className="bg-primaryColor_1 text-textColor border-b-secondaryColor font-body"
                     key={log._id}
                   >
                     <TableCell>{log.userName || "-"}</TableCell>
@@ -215,7 +221,7 @@ const AdminSection = () => {
         </div>
       ) : (
         !loading && (
-          <p className="text-sm text-gray-500 mt-4">
+          <p className="text-sm text-gray-500 mt-4 font-body">
             No download logs found for the selected filters.
           </p>
         )

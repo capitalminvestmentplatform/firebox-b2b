@@ -43,7 +43,10 @@ export function NavMain() {
                     : ""
                 }
               >
-                <Link href={item.url} className="flex items-center gap-2">
+                <Link
+                  href={item.url}
+                  className="flex items-center gap-2 font-body"
+                >
                   {item.icon && <item.icon />}
                   <span>{item.title}</span>
                 </Link>

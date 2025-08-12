@@ -8,6 +8,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        heading: ["var(--font-oswald)", "sans-serif"],
+        body: ["var(--font-roboto)", "sans-serif"],
+      },
       backgroundImage: {
         heroBackground: "url('/images/company/background.png')",
         homeBackground: "url('/images/background.jpg')",

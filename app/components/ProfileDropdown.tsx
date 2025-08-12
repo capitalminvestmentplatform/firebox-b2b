@@ -45,7 +45,7 @@ const ProfileDropdown = () => {
       <DropdownMenuTrigger asChild>
         <UserRound className="cursor-pointer" />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 me-10 p-3 bg-primaryColor_1 border-primaryColor_1 text-textColor">
+      <DropdownMenuContent className="w-56 me-10 p-3 bg-primaryColor_1 border-primaryColor_1 text-textColor font-heading">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator className="bg-primaryColor" />
         <DropdownMenuGroup>

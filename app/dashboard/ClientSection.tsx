@@ -73,14 +73,14 @@ const ClientSection = () => {
           <CardHeader>
             <div className="flex items-center gap-2">
               {mediaIcons[type]}
-              <CardTitle className="capitalize">
+              <CardTitle className="capitalize font-heading">
                 {type.replace(/s$/, "")}s
               </CardTitle>
             </div>
           </CardHeader>
           <CardContent className="flex gap-4 overflow-x-auto">
             {items.length === 0 ? (
-              <p className="text-sm m-auto text-muted-foreground">
+              <p className="text-sm m-auto text-muted-foreground font-body">
                 No data found
               </p>
             ) : (
