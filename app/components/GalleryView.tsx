@@ -95,7 +95,7 @@ const GalleryView = ({
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-4 mb-20">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-20">
         {products.map((product) => {
           const items = groupedItems[product._id] || [];
 

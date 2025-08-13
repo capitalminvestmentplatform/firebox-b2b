@@ -51,20 +51,20 @@ const MediaPreviewDialog: React.FC<MediaPreviewDialogProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-4xl bg-black p-0 text-white [&>button]:hidden">
+      <DialogContent className="md:max-w-4xl bg-black p-0 text-white [&>button]:hidden">
         <div className="relative w-full flex items-center justify-center bg-black min-h-[60vh]">
           {/* Main Preview */}
           {type === "image" ? (
             <img
               src={currentItem?.url}
               alt={`Slide ${currentIndex + 1}`}
-              className="max-h-[80vh] w-auto object-contain"
+              className="max-h-[30vh] md:max-h-[80vh] w-auto object-contain"
             />
           ) : type === "video" ? (
             <video
               src={currentItem?.url}
               controls
-              className="max-h-[80vh] w-auto object-contain"
+              className="max-h-[30vh] md:max-h-[80vh] w-auto object-contain"
             />
           ) : (
             <div className="flex flex-col items-center justify-center text-center">
@@ -87,13 +87,13 @@ const MediaPreviewDialog: React.FC<MediaPreviewDialogProps> = ({
           {items.length > 1 && (
             <>
               <button
-                className="absolute left-4 -ms-16 top-1/2 transform -translate-y-1/2 text-white text-3xl hover:text-gray-400"
+                className="absolute left-4 md:-ms-16 top-1/2 transform -translate-y-1/2 text-white text-3xl hover:text-gray-400"
                 onClick={prev}
               >
                 <FaChevronLeft />
               </button>
               <button
-                className="absolute right-4 -me-16 top-1/2 transform -translate-y-1/2 text-white text-3xl hover:text-gray-400"
+                className="absolute right-4 md:-me-16 top-1/2 transform -translate-y-1/2 text-white text-3xl hover:text-gray-400"
                 onClick={next}
               >
                 <FaChevronRight />

@@ -10,6 +10,16 @@ body {
     Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
+:root {
+  --sidebar-background: 0 0% 0%; /* black */
+  --sidebar-foreground: 0 0% 100%;
+}
+
+.sidebar {
+  background: hsl(var(--sidebar-background));
+  color: var(--sidebar-text-color);
+}
+
 [data-radix-portal] {
   display: none !important;
 }
