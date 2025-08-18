@@ -13,7 +13,7 @@ export async function GET() {
   try {
     await connectToDatabase();
 
-    const products = await Product.find().sort({ createdAt: -1 }).lean();
+    const products = await Product.find().sort({ order: 1 }).lean();
 
     return sendSuccessResponse(200, "Products fetched successfully!", products);
   } catch (error) {
