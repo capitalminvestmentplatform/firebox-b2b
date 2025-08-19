@@ -1,4 +1,5 @@
 // src/hooks/useProductDropdown.ts
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
 type ProductOption = {
@@ -7,6 +8,8 @@ type ProductOption = {
 };
 
 export function useProductDropdown(initialValue: string = "") {
+  const pathname = usePathname();
+
   const [selectedProduct, setSelectedProduct] = useState(initialValue);
   const [products, setProducts] = useState<ProductOption[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -26,8 +29,17 @@ export function useProductDropdown(initialValue: string = "") {
       if (response.statusCode !== 200) {
         throw new Error(response.message);
       }
+      const isCatalogsPage = pathname
+        .toLowerCase()
+        .includes("product-catalogs");
 
-      setProducts(response.data); // assuming data is an array of products
+      const productsToSet = isCatalogsPage
+        ? response.data
+        : response.data.filter(
+            (p: any) => (p?.name || "").toLowerCase() !== "full catalogue"
+          );
+
+      setProducts(productsToSet);
       setError(null);
     } catch (err) {
       const message = (err as Error).message;

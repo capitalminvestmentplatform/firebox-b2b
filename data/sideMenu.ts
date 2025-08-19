@@ -31,7 +31,7 @@ export const sideMenu = [
     url: "/dashboard/product-documents",
   },
   {
-    title: "Catalogs",
+    title: "Catalogue",
     icon: StickyNote,
     url: "/dashboard/product-catalogs",
   },

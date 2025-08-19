@@ -1,8 +1,5 @@
 // app/api/recent-products/route.ts
 import { sendErrorResponse, sendSuccessResponse } from "@/utils/apiResponse";
-import { NextResponse } from "next/server";
-
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
 export async function GET() {
   try {
@@ -17,7 +14,9 @@ export async function GET() {
 
     // Fetch all endpoints in parallel
     const responses = await Promise.all(
-      endpoints.map((endpoint) => fetch(`${BASE_URL}/api/${endpoint}`))
+      endpoints.map((endpoint) =>
+        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/${endpoint}`)
+      )
     );
 
     // Convert all to JSON

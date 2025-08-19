@@ -36,7 +36,7 @@ const ProductCard = ({
       />
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-primaryColor_1 bg-opacity-60 flex flex-col justify-between p-3">
+      <div className="absolute inset-0 bg-primaryColor_1 bg-opacity-30 flex flex-col justify-between p-3">
         <h3 className="text-white font-semibold text-lg font-heading">
           {product?.name}
         </h3>

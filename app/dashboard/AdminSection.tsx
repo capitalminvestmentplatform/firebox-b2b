@@ -27,7 +27,7 @@ const mediaTypeLabelMap: Record<string, string> = {
   ProductVideo: "Videos",
   ProductDocument: "Documents",
   ProductManual: "Manuals",
-  ProductCatalog: "Catalogs",
+  ProductCatalog: "Catalogue",
   ProductCertificate: "Certificates",
 };
 
