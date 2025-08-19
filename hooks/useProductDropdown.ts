@@ -31,7 +31,7 @@ export function useProductDropdown(initialValue: string = "") {
       }
       const isCatalogsPage = pathname
         .toLowerCase()
-        .includes("product-catalogs");
+        .includes("product-catalogue");
 
       const productsToSet = isCatalogsPage
         ? response.data

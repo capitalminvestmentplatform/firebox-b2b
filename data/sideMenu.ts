@@ -33,7 +33,7 @@ export const sideMenu = [
   {
     title: "Catalogue",
     icon: StickyNote,
-    url: "/dashboard/product-catalogs",
+    url: "/dashboard/product-catalogue",
   },
   {
     title: "User Manuals",
