@@ -14,13 +14,22 @@ export async function GET() {
     await connectToDatabase();
 
     const productManual = await ProductManual.find()
+      .populate({
+        path: "pId", // field in ProductImage
+        select: "name _id", // only bring back name and _id
+      })
       .sort({ createdAt: -1 })
       .lean();
 
+    const transformed = productManual.map((man) => ({
+      ...man,
+      pId: man.pId?._id || null,
+      name: man.pId?.name || null,
+    }));
     return sendSuccessResponse(
       200,
       "Product manuals fetched successfully!",
-      productManual
+      transformed
     );
   } catch (error) {
     return sendErrorResponse(500, "Internal server error", error);
@@ -62,12 +71,13 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
 
-    const { url, pId } = body;
+    const { url, pId, isArabic } = body;
 
     // 5. Create product
     const newProductManuals = new ProductManual({
       url,
       pId,
+      isArabic,
     });
 
     await newProductManuals.save();

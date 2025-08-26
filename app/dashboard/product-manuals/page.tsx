@@ -8,12 +8,14 @@ import { useProductDropdown } from "@/hooks/useProductDropdown";
 import DocsView from "@/app/components/DocsView";
 import { OtherDocsUpload } from "@/app/components/investments/OtherDocsUpload";
 import GalleryView from "@/app/components/GalleryView";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 const ProductManualsPage = () => {
   const userRole = getLoggedInUser()?.role;
   const { selectedProduct, setSelectedProduct, options, isLoading, error } =
     useProductDropdown();
 
+  const [isArabic, setIsArabic] = useState(false);
   const [manual, setManual] = useState<(File | string)[]>([]); // ⬅️ single manual
   const [productManuals, setProductManuals] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -57,7 +59,6 @@ const ProductManualsPage = () => {
     }
 
     setButtonLoading(true);
-
     const uploadedUrl =
       typeof manual[0] === "string"
         ? manual[0]
@@ -68,6 +69,7 @@ const ProductManualsPage = () => {
       body: JSON.stringify({
         pId: selectedProduct,
         url: uploadedUrl,
+        isArabic,
       }),
     });
 
@@ -109,8 +111,41 @@ const ProductManualsPage = () => {
                 setDocs={(docs) => setManual(docs)}
                 type="manual"
               />
+              {/* ✅ Language Radio (Arabic / English) */}
+              <RadioGroup
+                value={isArabic ? "arabic" : "english"}
+                onValueChange={(val) => setIsArabic(val === "arabic")}
+                className="flex items-center space-x-6"
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem
+                    value="english"
+                    id="english"
+                    className="data-[state=checked]:bg-secondaryColor data-[state=checked]:border-secondaryColor data-[state=unchecked]:bg-textColor data-[state=unchecked]:border-textColor"
+                  />
+                  <label
+                    htmlFor="english"
+                    className="text-sm font-medium leading-none cursor-pointer"
+                  >
+                    English
+                  </label>
+                </div>
 
-              <div className="flex gap-5">
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem
+                    value="arabic"
+                    id="arabic"
+                    className="data-[state=checked]:bg-secondaryColor data-[state=checked]:border-secondaryColor data-[state=unchecked]:bg-textColor data-[state=unchecked]:border-textColor"
+                  />
+                  <label
+                    htmlFor="arabic"
+                    className="text-sm font-medium leading-none cursor-pointer"
+                  >
+                    Arabic
+                  </label>
+                </div>
+              </RadioGroup>
+              <div className="flex items-center gap-5">
                 <button
                   onClick={() => {
                     setManual([]);

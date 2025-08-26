@@ -14,13 +14,23 @@ export async function GET() {
     await connectToDatabase();
 
     const productDocuments = await ProductDocument.find()
+      .populate({
+        path: "pId", // field in ProductImage
+        select: "name _id", // only bring back name and _id
+      })
       .sort({ createdAt: -1 })
       .lean();
+
+    const transformed = productDocuments.map((doc) => ({
+      ...doc,
+      pId: doc.pId?._id || null,
+      name: doc.pId?.name || null,
+    }));
 
     return sendSuccessResponse(
       200,
       "Product documents fetched successfully!",
-      productDocuments
+      transformed
     );
   } catch (error) {
     return sendErrorResponse(500, "Internal server error", error);

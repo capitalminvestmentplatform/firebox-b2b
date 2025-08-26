@@ -14,13 +14,23 @@ export async function GET() {
     await connectToDatabase();
 
     const productImages = await ProductImage.find()
+      .populate({
+        path: "pId", // field in ProductImage
+        select: "name _id", // only bring back name and _id
+      })
       .sort({ createdAt: -1 })
       .lean();
+
+    const transformed = productImages.map((img) => ({
+      ...img,
+      pId: img.pId?._id || null,
+      name: img.pId?.name || null,
+    }));
 
     return sendSuccessResponse(
       200,
       "Product images fetched successfully!",
-      productImages
+      transformed
     );
   } catch (error) {
     return sendErrorResponse(500, "Internal server error", error);

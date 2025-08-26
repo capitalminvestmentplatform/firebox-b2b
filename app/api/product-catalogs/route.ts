@@ -14,13 +14,22 @@ export async function GET() {
     await connectToDatabase();
 
     const productCatalogs = await ProductCatalog.find()
+      .populate({
+        path: "pId", // field in ProductImage
+        select: "name _id", // only bring back name and _id
+      })
       .sort({ createdAt: -1 })
       .lean();
 
+    const transformed = productCatalogs.map((cat) => ({
+      ...cat,
+      pId: cat.pId?._id || null,
+      name: cat.pId?.name || null,
+    }));
     return sendSuccessResponse(
       200,
       "Product catalogs fetched successfully!",
-      productCatalogs
+      transformed
     );
   } catch (error) {
     return sendErrorResponse(500, "Internal server error", error);

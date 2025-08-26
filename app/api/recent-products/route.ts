@@ -29,7 +29,7 @@ export async function GET() {
           (a, b) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         )
-        .slice(0, 5);
+        .slice(0, 6);
 
     const combined = {
       images: getTop5Recent(results[0].data),

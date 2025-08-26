@@ -15,13 +15,22 @@ export async function GET() {
     await connectToDatabase();
 
     const certificates = await Certificate.find()
+      .populate({
+        path: "pId", // field in ProductImage
+        select: "name _id", // only bring back name and _id
+      })
       .sort({ createdAt: -1 })
       .lean();
 
+    const transformed = certificates.map((cer) => ({
+      ...cer,
+      pId: cer.pId?._id || null,
+      name: cer.pId?.name || null,
+    }));
     return sendSuccessResponse(
       200,
       "Certificates fetched successfully!",
-      certificates
+      transformed
     );
   } catch (error) {
     return sendErrorResponse(500, "Internal server error", error);

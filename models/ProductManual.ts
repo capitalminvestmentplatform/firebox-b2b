@@ -4,6 +4,7 @@ const ProductManualSchema = new Schema(
   {
     url: { type: String, required: true },
     pId: { type: Schema.Types.ObjectId, ref: "Product", required: true },
+    isArabic: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
